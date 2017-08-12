@@ -1,3 +1,4 @@
+package Code;
 public class Document {
 	@Override
 	public String toString(){

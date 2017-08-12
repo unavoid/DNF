@@ -1,3 +1,4 @@
+package Code;
 import java.util.*;
 import java.io.*;
 import java.time.*;
@@ -5,7 +6,7 @@ import java.time.*;
 public class Calculate{
 	private static PrintWriter pw;
 	private static BufferedReader rd;
-
+	private static String timeNow = YearMonth.now() +" "+ LocalTime.now();
 	public static void main(String[] args) {
 	//Determine if the "配置.ini" is already exists
 		try{
@@ -21,7 +22,7 @@ public class Calculate{
 						new OutputStreamWriter(
 							new FileOutputStream("配置.ini"),"utf8")));						
 				System.out.println("文件创建成功");
-				System.out.println(YearMonth.now() +" "+ LocalTime.now());
+				System.out.println();
 				pw.print("创建时间");
 				pw.println(YearMonth.now() +" "+ LocalTime.now());
 				pw.close();
