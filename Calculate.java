@@ -12,7 +12,10 @@ public static void main(String[] args) {
 	}catch(IOException e){
 		System.out.println("请在\"配置.ini\"下填写");
 		try{
-
+			PrintWriter pw = new PrintWriter(
+				new BufferedWriter(
+					new InputStreamWriter("配置.ini")));
+			System.out.println("文件创建成功");
 		}catch(IOException a){
 
 		}catch(Expection a){
