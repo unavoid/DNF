@@ -7,7 +7,7 @@ import java.time.*;
 public class Calculate {
 	private static PrintWriter pw;
 	private static BufferedReader rd;
-	private static String timeNow = YearMonth.now() + " " + LocalTime.now();
+	private static String timeNow = YearMonth.now() + "／" + LocalTime.now();
 
 	public static void main(String[] args) {
 		begin();
@@ -25,8 +25,8 @@ public class Calculate {
 						new BufferedWriter(new OutputStreamWriter(new FileOutputStream(".//配置.ini"), "utf8")));
 				System.out.println("文件创建成功");
 				System.out.println();
-				pw.print("创建时间--");
-				pw.println(timeNow.substring(0, 13));
+				Document dc = new Document("创建时间--" + timeNow.substring(0, 13));
+				pw.print(dc.toString());
 				pw.close();
 			} catch (IOException a) {
 				System.out.println("文件创建失败");
