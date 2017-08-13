@@ -16,8 +16,12 @@ public class Calculate {
 	private static Scanner cin = new Scanner(System.in);
 	public static void main(String[] args) {
 		begin();
+		//initialization Material
+		//initialization Consumables
+		
 	}
 
+	
 	private static void begin() {
 		// Determine if the "配置.ini" is already exists
 		try {
@@ -60,6 +64,8 @@ public class Calculate {
 				System.out.println("下列材料填写错误");
 		}
 	}
+	
+	
 	private static boolean IfFileReadRight() throws IOException{
 		String str = null;
 			while((str = rd.readLine()) != null){
@@ -67,9 +73,13 @@ public class Calculate {
 			}
 		//remove space
 		String str1 = new String(Document);
-		str1 = str1.replace("","");
+		str1 = str1.replace(" ","");
 		//System.out.println(str1);
 		//to JudgeFileReadRight
 		return true;
+	}
+	
+	private static void iniConsumables(){
+		Consumables csb = new Consumables("");
 	}
 }
