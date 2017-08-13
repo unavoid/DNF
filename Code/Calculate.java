@@ -13,6 +13,7 @@ public class Calculate {
 	private static String timeNow = YearMonth.now() + "／" + LocalTime.now();
 	private static boolean ifTheFileReadSuccessfully	 = false;
 	private static StringBuffer Document;
+	private static Scanner cin = new Scanner(System.in);
 	public static void main(String[] args) {
 		begin();
 	}
@@ -44,6 +45,19 @@ public class Calculate {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		while(!ifTheFileReadSuccessfully){
+			System.out.println("请在填写材料后输入 1 开始计算");
+			int judge = cin.nextInt();
+			if(judge == 1){
+				try{
+					ifTheFileReadSuccessfully = IfFileReadRight();
+				}catch (Exception e) {
+					System.out.println("配置参数错误");
+				}
+			}
+			if(!ifTheFileReadSuccessfully)
+				System.out.println("下列材料填写错误");
 		}
 	}
 	private static boolean IfFileReadRight() throws IOException{

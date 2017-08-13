@@ -1,4 +1,5 @@
 package Code;
+
 public class Document {
 	String head;
 	public Document(String head) {
@@ -11,6 +12,5 @@ public class Document {
 			   "Name      Price"
 			 + "无色小晶体："
 			 + "白色小晶体: ";
-		
 	}
 }
