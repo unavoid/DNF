@@ -10,7 +10,8 @@ public class Document {
 	public String toString(){
 		return "大区 " + head + '\n' +
 			   "Name      Price" + '\n'
-			 + "无色小晶体: " + '\n'
-			 + "白色小晶体: " + '\n';
+			 + "材料-无色小晶体: " + '\n'
+			 + "材料-白色小晶体: " + '\n'
+			 + "材料-黑色小晶体; " + '\n';
 	}
 }

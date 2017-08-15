@@ -1,9 +1,6 @@
 package Code;
 
 import java.util.*;
-
-import com.sun.org.apache.regexp.internal.recompile;
-
 import java.io.*;
 import java.time.*;
 
@@ -79,7 +76,7 @@ public class Calculate {
 		return true;
 	}
 	
-	private static void iniConsumables(){
-		Consumables csb = new Consumables("");
+	private void iniConsumables(){
+		Consumables csb = new Consumables("111");
 	}
 }
