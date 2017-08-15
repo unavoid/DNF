@@ -36,7 +36,7 @@ public class Calculate {
 				System.out.println("文件创建成功");
 				System.out.println();
 				Document dc = new Document("创建时间--" + timeNow.substring(0, 13));
-				pw.print(dc.toString());
+				pw.print(dc);
 				pw.close();
 			} catch (IOException a) {
 				System.out.println("文件创建失败");
@@ -52,7 +52,12 @@ public class Calculate {
 			int judge = cin.nextInt();
 			if(judge == 1){
 				try{
+					rd = new BufferedReader(
+							new InputStreamReader(
+									new FileInputStream("./配置.ini")));
 					ifTheFileReadSuccessfully = IfFileReadRight();
+				}catch (IOException e){
+					System.out.println("文件读取错误");
 				}catch (Exception e) {
 					System.out.println("配置参数错误");
 				}
