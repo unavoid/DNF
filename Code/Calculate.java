@@ -1,9 +1,6 @@
 package Code;
 
 import java.util.*;
-
-import javax.print.Doc;
-
 import java.io.*;
 import java.time.*;
 
@@ -18,7 +15,7 @@ public class Calculate {
 		begin();
 		//initialization Material
 		Material mt = new Material("111");
-		inMaterial();
+		inMaterial(mt);
 		//initialization Consumables
 		Consumables csb = new Consumables("111");
 		iniConsumables();
@@ -90,7 +87,7 @@ public class Calculate {
 		//System.out.println(str1);
 		//to JudgeFileReadRight
 		System.out.println(str1);
-		document = new StringBuffer(str);
+		document = new StringBuffer(str1);
 		return true;
 	}
 	
@@ -99,11 +96,24 @@ public class Calculate {
 	}
 	
 
-	private static void inMaterial() {
+	private static void inMaterial(Material mate) {
 		// TODO Auto-generated method stub
 		int fromIndex = 0;
-		while(document.indexOf("材料", fromIndex) != -1){
-			
+		int start = 0;
+		int end = 0;
+		while((start = document.indexOf("材料", fromIndex)) != -1){
+			if((end = document.indexOf("材料", start)) == -1){
+				
+			}else{
+				String temp = document.substring(start, end);
+				System.out.println(temp);
+				int startAtTemp =temp.indexOf("材料-");
+				int endAtTemp = temp.indexOf(':');
+				int price = (new Integer(temp.substring(endAtTemp, end)).intValue());
+				System.out.println("Stirng: " + temp.substring(startAtTemp+3,endAtTemp-1) + "price: " +price);
+				mate.setmaterials(temp.substring(startAtTemp+3,endAtTemp-1), price);
+			}
+			fromIndex = start;
 		}
 	}
 }
