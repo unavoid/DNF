@@ -12,16 +12,23 @@ public class Calculate {
 	private static StringBuffer document = new StringBuffer();
 	private static Scanner cin = new Scanner(System.in);
 	public static void main(String[] args) {
-		begin();
+		
 		//initialization Material
 		Material mt = new Material("111");
-		iniMaterial(mt);
+		begin(mt);
+		listMaterial(mt);
+//		iniMaterial(mt);
 		//initialization Consumables
 		Consumables csb = new Consumables("111");
 		iniConsumables(csb);
 	}
 
-	private static void begin() {
+	private static void listMaterial(Material mt) {
+		// TODO Auto-generated method stub
+		mt.listMaterial();
+	}
+
+	private static void begin(Material mt) {
 		// Determine if the "配置.ini" is already exists
 		try {
 			rd = new BufferedReader(
@@ -37,7 +44,8 @@ public class Calculate {
 										new FileOutputStream(".//配置.ini"), "utf8")));
 				System.out.println("文件创建成功");
 				System.out.println();
-				Document dc = new Document("创建时间--" + timeNow.substring(0, 13));
+//				Document dc = new Document("创建时间--" + timeNow.substring(0, 13));
+				Document dc = new Document();
 				pw.print(dc);
 				pw.close();
 			} catch (IOException a) {
@@ -57,7 +65,7 @@ public class Calculate {
 					rd = new BufferedReader(
 							new InputStreamReader(
 									new FileInputStream("./配置.ini")));
-					ifTheFileReadSuccessfully = IfFileReadRight();
+					ifTheFileReadSuccessfully = IfFileReadRight(mt);
 				}catch (IOException e){
 					System.out.println("文件读取错误");
 				}catch (Exception e) {
@@ -71,65 +79,70 @@ public class Calculate {
 	}
 	
 	
-	private static boolean IfFileReadRight() throws IOException{
+	private static boolean IfFileReadRight(Material mt) throws IOException{
 		String str = null;
 			while((str = rd.readLine()) != null){
-					document.append(str);
+//					document.append(str);
+				str = str.replace(" ", "");
+				System.out.println(str);
+				String[] s = str.split(":");
+				int price = Integer.parseInt(s[1]);
+				iniMaterial(mt,s[0],price);
 			}
 		//remove space
-		String str1 = new String(document);
-		str1 = str1.replace(" ","");
-		//System.out.println(str1);
+//		String str1 = new String(document);
+//		str1 = str1.replace(" ","");
+//		//System.out.println(str1);
 		//to JudgeFileReadRight
 //		System.out.println(str1);
-		document = new StringBuffer(str1);
+//		document = new StringBuffer(str1);
 		return true;
 	}
 	
 	private static void iniConsumables(Consumables cons){
-		int fromIndex = 0;
-		int start = 0;
-		int end = 0;
-		while((start = document.indexOf("消耗品-", fromIndex+1)) != -1){
-			if((end = document.indexOf("消耗品-", start+1)) == -1){
-				end = document.length();
-			}
-			String temp = document.substring(start, end);
-			System.out.println(temp);
-			int startAtTemp =temp.indexOf("消耗品-");
-			int midAtTemp = temp.indexOf(':');
-			int endAtTemp = temp.indexOf("需求量");
-			int price = (new Integer(temp.substring(midAtTemp+1, endAtTemp)).intValue());
-			int requement = (new Integer(temp.substring(endAtTemp+4, temp.length())).intValue());
-//			System.out.println("String: " + temp.substring(startAtTemp+4,endAtTemp) + "price: " +price);
-//			System.out.println("String: " + temp.substring(endAtTemp+4, temp.length()) + "requirement: "+ requement);
-			cons.setSellingPrice(temp.substring(startAtTemp+4, midAtTemp), price);
-			cons.setRequirement(temp.substring(startAtTemp+4, midAtTemp), requement);
-			
-			fromIndex = start;
-		}
-		cons.listRequirement();
-		cons.listSellingPricce();
+//		int fromIndex = 0;
+//		int start = 0;
+//		int end = 0;
+//		while((start = document.indexOf("消耗品-", fromIndex+1)) != -1){
+//			if((end = document.indexOf("消耗品-", start+1)) == -1){
+//				end = document.length();
+//			}
+//			String temp = document.substring(start, end);
+//			System.out.println(temp);
+//			int startAtTemp =temp.indexOf("消耗品-");
+//			int midAtTemp = temp.indexOf(':');
+//			int endAtTemp = temp.indexOf("需求量");
+//			int price = (new Integer(temp.substring(midAtTemp+1, endAtTemp)).intValue());
+//			int requement = (new Integer(temp.substring(endAtTemp+4, temp.length())).intValue());
+////			System.out.println("String: " + temp.substring(startAtTemp+4,endAtTemp) + "price: " +price);
+////			System.out.println("String: " + temp.substring(endAtTemp+4, temp.length()) + "requirement: "+ requement);
+//			cons.setSellingPrice(temp.substring(startAtTemp+4, midAtTemp), price);
+//			cons.setRequirement(temp.substring(startAtTemp+4, midAtTemp), requement);
+//			
+//			fromIndex = start;
+//		}
+//		cons.listRequirement();
+//		cons.listSellingPricce();
 	}
 	
 
-	private static void iniMaterial(Material mate) {
-		int fromIndex = 0;
-		int start = 0;
-		int end = 0;
-		while((start = document.indexOf("材料", fromIndex+1)) != -1){
-			if((end = document.indexOf("材料", start+1)) == -1){
-				end = document.indexOf("下面是消耗品");	
-			}
-			String temp = document.substring(start, end);
-			System.out.println(temp);
-			int startAtTemp =temp.indexOf("材料-");
-			int endAtTemp = temp.indexOf(':');
-			int price = (new Integer(temp.substring(endAtTemp+1, temp.length())).intValue());
-//			System.out.println("String: " + temp.substring(startAtTemp+3,endAtTemp) + "price: " +price);
-			mate.setmaterials(temp.substring(startAtTemp+3,endAtTemp), price);
-			fromIndex = start;
-		}
-		mate.listMaterial();
+	private static void iniMaterial(Material mate,String temp,int price) {
+//		int fromIndex = 0;
+//		int start = 0;
+//		int end = 0;
+//		while((start = document.indexOf("材料", fromIndex+1)) != -1){
+//			if((end = document.indexOf("材料", start+1)) == -1){
+//				end = document.indexOf("下面是消耗品");	
+//			}
+//			String temp = document.substring(start, end);
+//			System.out.println(temp);
+//			int startAtTemp =temp.indexOf("材料-");
+//			int endAtTemp = temp.indexOf(':');
+//			int price = (new Integer(temp.substring(endAtTemp+1, temp.length())).intValue());
+////			System.out.println("String: " + temp.substring(startAtTemp+3,endAtTemp) + "price: " +price);
+//			mate.setmaterials(temp.substring(startAtTemp+3,endAtTemp), price);
+//			fromIndex = start;
+//		}
+		mate.setmaterials(temp, price);
 	}
 }
