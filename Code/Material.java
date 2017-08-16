@@ -20,4 +20,10 @@ public class Material {
 	public int getPrice(String name){
 		return materials.get(name);
 	}
+	
+	public void listMaterial(){
+		for(Map.Entry<String, Integer>entry:materials.entrySet()){
+			System.out.println("name:" + entry.getKey() + " price:" + entry.getValue());
+		}
+	}
 }

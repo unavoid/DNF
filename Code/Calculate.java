@@ -1,6 +1,7 @@
 package Code;
 
 import java.util.*;
+import java.util.Map.Entry;
 import java.io.*;
 import java.time.*;
 
@@ -15,7 +16,7 @@ public class Calculate {
 		begin();
 		//initialization Material
 		Material mt = new Material("111");
-		inMaterial(mt);
+		iniMaterial(mt);
 		//initialization Consumables
 		Consumables csb = new Consumables("111");
 		iniConsumables();
@@ -96,24 +97,25 @@ public class Calculate {
 	}
 	
 
-	private static void inMaterial(Material mate) {
+	private static void iniMaterial(Material mate) {
 		// TODO Auto-generated method stub
 		int fromIndex = 0;
 		int start = 0;
 		int end = 0;
-		while((start = document.indexOf("材料", fromIndex)) != -1){
-			if((end = document.indexOf("材料", start)) == -1){
+		while((start = document.indexOf("材料", fromIndex+1)) != -1){
+			if((end = document.indexOf("材料", start+1)) == -1){
 				
 			}else{
 				String temp = document.substring(start, end);
 				System.out.println(temp);
 				int startAtTemp =temp.indexOf("材料-");
 				int endAtTemp = temp.indexOf(':');
-				int price = (new Integer(temp.substring(endAtTemp, end)).intValue());
-				System.out.println("Stirng: " + temp.substring(startAtTemp+3,endAtTemp-1) + "price: " +price);
-				mate.setmaterials(temp.substring(startAtTemp+3,endAtTemp-1), price);
+				int price = (new Integer(temp.substring(endAtTemp+1, temp.length())).intValue());
+//				System.out.println("Stirng: " + temp.substring(startAtTemp+3,endAtTemp) + "price: " +price);
+				mate.setmaterials(temp.substring(startAtTemp+3,endAtTemp), price);
 			}
 			fromIndex = start;
 		}
+		mate.listMaterial();
 	}
 }
