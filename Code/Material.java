@@ -22,6 +22,7 @@ public class Material {
 	}
 	
 	public void listMaterial(){
+		System.out.println("listMaterial----------------------" + '\n');
 		for(Map.Entry<String, Integer>entry:materials.entrySet()){
 			System.out.println("name:" + entry.getKey() + " price:" + entry.getValue());
 		}

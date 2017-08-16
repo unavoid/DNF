@@ -1,7 +1,6 @@
 package Code;
 
 import java.util.*;
-import java.util.Map.Entry;
 import java.io.*;
 import java.time.*;
 
@@ -19,13 +18,8 @@ public class Calculate {
 		iniMaterial(mt);
 		//initialization Consumables
 		Consumables csb = new Consumables("111");
-		iniConsumables();
+		iniConsumables(csb);
 	}
-
-
-
-
-
 
 	private static void begin() {
 		// Determine if the "配置.ini" is already exists
@@ -87,33 +81,53 @@ public class Calculate {
 		str1 = str1.replace(" ","");
 		//System.out.println(str1);
 		//to JudgeFileReadRight
-		System.out.println(str1);
+//		System.out.println(str1);
 		document = new StringBuffer(str1);
 		return true;
 	}
 	
-	private static void iniConsumables(){
-		
+	private static void iniConsumables(Consumables cons){
+		int fromIndex = 0;
+		int start = 0;
+		int end = 0;
+		while((start = document.indexOf("消耗品-", fromIndex+1)) != -1){
+			if((end = document.indexOf("消耗品-", start+1)) == -1){
+				end = document.length();
+			}
+			String temp = document.substring(start, end);
+			System.out.println(temp);
+			int startAtTemp =temp.indexOf("消耗品-");
+			int midAtTemp = temp.indexOf(':');
+			int endAtTemp = temp.indexOf("需求量");
+			int price = (new Integer(temp.substring(midAtTemp+1, endAtTemp)).intValue());
+			int requement = (new Integer(temp.substring(endAtTemp+4, temp.length())).intValue());
+//			System.out.println("String: " + temp.substring(startAtTemp+4,endAtTemp) + "price: " +price);
+//			System.out.println("String: " + temp.substring(endAtTemp+4, temp.length()) + "requirement: "+ requement);
+			cons.setSellingPrice(temp.substring(startAtTemp+4, midAtTemp), price);
+			cons.setRequirement(temp.substring(startAtTemp+4, midAtTemp), requement);
+			
+			fromIndex = start;
+		}
+		cons.listRequirement();
+		cons.listSellingPricce();
 	}
 	
 
 	private static void iniMaterial(Material mate) {
-		// TODO Auto-generated method stub
 		int fromIndex = 0;
 		int start = 0;
 		int end = 0;
 		while((start = document.indexOf("材料", fromIndex+1)) != -1){
 			if((end = document.indexOf("材料", start+1)) == -1){
-				
-			}else{
-				String temp = document.substring(start, end);
-				System.out.println(temp);
-				int startAtTemp =temp.indexOf("材料-");
-				int endAtTemp = temp.indexOf(':');
-				int price = (new Integer(temp.substring(endAtTemp+1, temp.length())).intValue());
-//				System.out.println("Stirng: " + temp.substring(startAtTemp+3,endAtTemp) + "price: " +price);
-				mate.setmaterials(temp.substring(startAtTemp+3,endAtTemp), price);
+				end = document.indexOf("下面是消耗品");	
 			}
+			String temp = document.substring(start, end);
+			System.out.println(temp);
+			int startAtTemp =temp.indexOf("材料-");
+			int endAtTemp = temp.indexOf(':');
+			int price = (new Integer(temp.substring(endAtTemp+1, temp.length())).intValue());
+//			System.out.println("String: " + temp.substring(startAtTemp+3,endAtTemp) + "price: " +price);
+			mate.setmaterials(temp.substring(startAtTemp+3,endAtTemp), price);
 			fromIndex = start;
 		}
 		mate.listMaterial();
